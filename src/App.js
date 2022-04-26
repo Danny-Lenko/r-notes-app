@@ -1,25 +1,57 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react"
+import Editor from "./components/Editor";
+import Sidebar from "./components/Sidebar"
+import Split from 'react-split'
+import { nanoid } from 'nanoid'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+export default function App() {
+
+    const [notes, setNotes] = React.useState([])
+
+    // function addFirstNote() {
+    //     console.log('btn clicked')
+    //     setNotes(prevState => {
+    //         prevState.
+    //     })
+    // }
+
+    function addNewNote() {
+        const newNote = {
+            body: "# Type a title here",
+            id: nanoid()
+        }
+        setNotes(prevState => [newNote, ...prevState])
+    }
+
+    console.log(notes)
+
+    const splitParams = {className: "split", sizes: [30,70], minSize: 100,
+        expandToMin: false, gutterSize: 10, gutterAlign: "center", snapOffset: 30,
+        dragInterval: 1, direction: "horizontal", cursor: "col-resize"}
+
+    return(
+        notes[0]
+            ? <Split {...splitParams}>
+
+                <Sidebar
+                    notes={notes}
+                />
+
+                <Editor />
+            </Split>
+
+            : <div className="no-notes">
+                <h1>You have no notes</h1>
+
+                <button
+                    className="first-note"
+                    onClick={addNewNote}
+                >
+                    Create one note
+                </button>
+            </div>
+
+
+    )
 }
-
-export default App;
