@@ -11,11 +11,18 @@ export default function App() {
         expandToMin: false, gutterSize: 10, gutterAlign: "center", snapOffset: 30,
         dragInterval: 1, direction: "horizontal", cursor: "col-resize"}
 
+    const restoredNotes = localStorage.getItem('notes')
+        ? JSON.parse(localStorage.getItem('notes'))
+        : []
 
-    const [notes, setNotes] = React.useState([])
+    const [notes, setNotes] = React.useState(() => restoredNotes)
     const [currentNoteId, setCurrentNoteId] = React.useState(
         (notes[0] && notes[0].id) || ''
     )
+
+    React.useEffect(() => {
+        localStorage.setItem('notes', JSON.stringify(notes))
+    }, [notes])
 
     function addNewNote() {
         const newNote = {
@@ -31,15 +38,21 @@ export default function App() {
     }
 
     function findCurrentNote() {
-        return notes.filter(note => note.id === currentNoteId)[0]
+        return notes.find(note => note.id === currentNoteId) || notes[0]
     }
 
     function updateNote(text) {
         const oldNotes = notes.filter(note => note.id !== currentNoteId)
-        let currentNote = notes.filter(note => note.id === currentNoteId)[0]
+        let currentNote = notes.find(note => note.id === currentNoteId)
         currentNote = {...currentNote, body: text}
 
         setNotes([currentNote, ...oldNotes])
+    }
+
+    function deleteNote(event, noteId) {
+        event.stopPropagation()
+        setNotes(prevNotes => prevNotes.filter(note => note.id !== noteId))
+        console.log('delete note', noteId)
     }
 
     return(
@@ -48,9 +61,10 @@ export default function App() {
 
                 <Sidebar
                     notes={notes}
-                    currentNoteId={currentNoteId}
+                    currentNote={findCurrentNote()}
                     addNote={addNewNote}
                     assignCurrentNote={assignCurrentNote}
+                    deleteNote={deleteNote}
                 />
 
                 <Editor
@@ -69,7 +83,6 @@ export default function App() {
                     Create one note
                 </button>
             </div>
-
 
     )
 }

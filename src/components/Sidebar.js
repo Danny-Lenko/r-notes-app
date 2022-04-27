@@ -5,7 +5,7 @@ export default function Sidebar(props) {
     const notesTitles = props.notes.map(note => (
         <div
             key={note.id}
-            className={`title ${(props.currentNoteId === note.id)
+            className={`title ${(props.currentNote.id === note.id)
                     ? "selected-note"
                     : ""}
             `}
@@ -14,6 +14,12 @@ export default function Sidebar(props) {
             <p className="text-snippet">
                 {note.body.split('\n')[0].match(/[a-z\s0-9]/ig)}
             </p>
+            <button
+                className="delete-btn"
+                onClick={(event) => props.deleteNote(event, note.id)}
+            >
+                <i className="gg-trash trash-icon"></i>
+            </button>
         </div>
     ))
 
