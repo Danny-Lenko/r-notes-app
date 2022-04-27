@@ -8,13 +8,9 @@ import { nanoid } from 'nanoid'
 export default function App() {
 
     const [notes, setNotes] = React.useState([])
-
-    // function addFirstNote() {
-    //     console.log('btn clicked')
-    //     setNotes(prevState => {
-    //         prevState.
-    //     })
-    // }
+    const [currentNoteId, setCurrentNoteId] = React.useState(
+        (notes[0] && notes[0].id) || ''
+    )
 
     function addNewNote() {
         const newNote = {
@@ -22,9 +18,12 @@ export default function App() {
             id: nanoid()
         }
         setNotes(prevState => [newNote, ...prevState])
+        setCurrentNoteId(newNote.id)
     }
 
-    console.log(notes)
+    function findCurrentNote(noteId) {
+        setCurrentNoteId(noteId)
+    }
 
     const splitParams = {className: "split", sizes: [30,70], minSize: 100,
         expandToMin: false, gutterSize: 10, gutterAlign: "center", snapOffset: 30,
@@ -36,6 +35,9 @@ export default function App() {
 
                 <Sidebar
                     notes={notes}
+                    currentNoteId={currentNoteId}
+                    addNote={addNewNote}
+                    findCurrentNote={findCurrentNote}
                 />
 
                 <Editor />
