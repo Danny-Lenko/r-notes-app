@@ -26,7 +26,7 @@ export default function Sidebar(props) {
     console.log(props.currentNoteId)
 
     return(
-        <aside className="sidebar">
+        <aside className="pane sidebar">
             <header className="sidebar--header">
                 <h3>Notes</h3>
                 <button

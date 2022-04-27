@@ -56,33 +56,37 @@ export default function App() {
     }
 
     return(
-        notes[0]
-            ? <Split {...splitParams}>
+        <section className="App">
+            {notes[0]
 
-                <Sidebar
-                    notes={notes}
-                    currentNote={findCurrentNote()}
-                    addNote={addNewNote}
-                    assignCurrentNote={assignCurrentNote}
-                    deleteNote={deleteNote}
-                />
+                ? <Split {...splitParams}>
 
-                <Editor
-                    currentNote={findCurrentNote()}
-                    updateNote={updateNote}
-                />
-            </Split>
+                    <Sidebar
+                        notes={notes}
+                        currentNote={findCurrentNote()}
+                        addNote={addNewNote}
+                        assignCurrentNote={assignCurrentNote}
+                        deleteNote={deleteNote}
+                    />
 
-            : <div className="no-notes">
-                <h1>You have no notes</h1>
+                    <Editor
+                        currentNote={findCurrentNote()}
+                        updateNote={updateNote}
+                    />
+                </Split>
 
-                <button
-                    className="first-note"
-                    onClick={addNewNote}
-                >
-                    Create one note
-                </button>
-            </div>
+                : <div className="no-notes">
+                    <h1>You have no notes</h1>
+
+                    <button
+                        className="first-note"
+                        onClick={addNewNote}
+                    >
+                        Create one note
+                    </button>
+                </div>}
+        </section>
+
 
     )
 }
