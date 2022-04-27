@@ -22,7 +22,7 @@ export default function Editor({ currentNote, updateNote }) {
                 generateMarkdownPreview={(markdown) =>
                     Promise.resolve(converter.makeHtml(markdown))
                 }
-                minEditorHeight={70}
+                minEditorHeight={64.753}
                 heightUnits="vh"
             />
         </main>
