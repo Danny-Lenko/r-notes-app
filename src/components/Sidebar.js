@@ -9,9 +9,11 @@ export default function Sidebar(props) {
                     ? "selected-note"
                     : ""}
             `}
-            onClick={()=> props.findCurrentNote(note.id)}
+            onClick={()=> props.assignCurrentNote(note.id)}
         >
-            <p className="text-snippet">{note.body}</p>
+            <p className="text-snippet">
+                {note.body.split('\n')[0].match(/[a-z\s0-9]/ig)}
+            </p>
         </div>
     ))
 

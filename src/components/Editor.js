@@ -15,8 +15,8 @@ export default function Editor({ currentNote, updateNote }) {
     return (
         <main className="pane editor">
             <ReactMde
-                // value={currentNote.body}
-                // onChange={updateNote}
+                value={currentNote.body}
+                onChange={updateNote}
                 selectedTab={selectedTab}
                 onTabChange={setSelectedTab}
                 generateMarkdownPreview={(markdown) =>
