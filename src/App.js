@@ -11,11 +11,9 @@ export default function App() {
         expandToMin: false, gutterSize: 10, gutterAlign: "center", snapOffset: 30,
         dragInterval: 1, direction: "horizontal", cursor: "col-resize"}
 
-    const restoredNotes = localStorage.getItem('notes')
-        ? JSON.parse(localStorage.getItem('notes'))
-        : []
-
-    const [notes, setNotes] = React.useState(() => restoredNotes)
+    const [notes, setNotes] = React.useState(
+        () => JSON.parse(localStorage.getItem('notes')) || []
+    )
     const [currentNoteId, setCurrentNoteId] = React.useState(
         (notes[0] && notes[0].id) || ''
     )
